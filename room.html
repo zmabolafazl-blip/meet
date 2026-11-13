@@ -6,10 +6,7 @@
     <title>اتاق جلسه | WebinarFlow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
   <body class="room-page">
@@ -17,12 +14,13 @@
       <div class="container room-header-wrap">
         <div class="room-title-block">
           <span class="live-pill tiny">زنده</span>
-          <h1 id="roomTitle">جلسه وبینار</h1>
+          <div><h1 id="roomTitle">در حال اتصال...</h1><small id="connectionStatus">آماده‌سازی جلسه</small></div>
         </div>
         <div class="room-actions">
-          <button class="btn btn-secondary" id="toggleMic">میکروفون: روشن</button>
-          <button class="btn btn-secondary" id="toggleVideo">ویدیو: روشن</button>
-          <button class="btn btn-primary" id="shareLinkBtn">اشتراک لینک</button>
+          <button class="btn btn-secondary" id="toggleMic" type="button">🎙️ میکروفون روشن</button>
+          <button class="btn btn-secondary" id="toggleVideo" type="button">📷 ویدیو روشن</button>
+          <button class="btn btn-secondary" id="shareScreen" type="button">🖥️ اشتراک صفحه</button>
+          <button class="btn btn-primary" id="shareLinkBtn" type="button">دعوت</button>
         </div>
       </div>
     </header>
@@ -30,40 +28,28 @@
     <main class="room-main">
       <div class="container room-grid">
         <section class="stage-panel">
-          <div class="stage-layout">
-            <div class="main-video">
-              <div class="video-user">مدیر جلسه</div>
-            </div>
-            <div class="small-video-stack" id="participantsList">
-              <div class="mini-video"><span>مهمان ۱</span></div>
-              <div class="mini-video"><span>مهمان ۲</span></div>
+          <div class="stage-layout" id="videoGrid">
+            <div class="video-tile local-tile" id="localTile">
+              <video id="localVideo" autoplay muted playsinline></video>
+              <span class="tile-name" id="localName">شما</span>
             </div>
           </div>
           <div class="stage-controls">
-            <button class="control-btn">✋ دست‌بالا</button>
-            <button class="control-btn">💬 سوال</button>
-            <button class="control-btn danger" id="leaveRoomBtn">خروج</button>
+            <span class="room-hint">برای تماس تصویری، اجازهٔ دوربین و میکروفون را بدهید.</span>
+            <button class="control-btn danger" id="leaveRoomBtn" type="button">خروج از جلسه</button>
           </div>
         </section>
 
         <aside class="room-sidebar">
           <div class="sidebar-card">
-            <h3>شرکت‌کنندگان</h3>
-            <ul id="participantsSidebar" class="participant-list">
-              <li>مدیر جلسه</li>
-              <li>مهمان ۱</li>
-              <li>مهمان ۲</li>
-            </ul>
+            <h3>شرکت‌کنندگان <span id="participantCount">0</span></h3>
+            <ul id="participantsSidebar" class="participant-list"></ul>
           </div>
-
           <div class="sidebar-card chat-card">
             <h3>چت جلسه</h3>
-            <div id="chatBox" class="chat-box">
-              <div class="chat-message"><strong>مدیر:</strong> خوش آمدید.</div>
-              <div class="chat-message"><strong>مهمان ۱:</strong> سلام، آماده‌ام.</div>
-            </div>
+            <div id="chatBox" class="chat-box" aria-live="polite"></div>
             <form id="chatForm" class="chat-form">
-              <input type="text" id="chatInput" placeholder="پیام خود را بنویسید..." />
+              <input type="text" id="chatInput" maxlength="500" placeholder="پیام خود را بنویسید..." autocomplete="off" />
               <button type="submit" class="btn btn-primary">ارسال</button>
             </form>
           </div>
@@ -71,6 +57,7 @@
       </div>
     </main>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script src="assets/app.js"></script>
   </body>
 </html>

@@ -1,38 +1,35 @@
 # WebinarFlow
 
-This project is a demo frontend for a webinar platform inspired by modern meeting apps such as Google Meet and Zoom.
-
-## Included pages
-
-- `index.html` — landing page for the webinar website
-- `host.html` — host creates a room with a title, PIN, and link
-- `join.html` — guest/user join screen with room code and PIN
-- `room.html` — interactive mock meeting room with chat and controls
-
-## Features
-
-- Landing page with hero section, pricing, and feature blocks
-- Host creation flow for meetings
-- PIN-based access control
-- Room link generation
-- Guest join flow
-- Meeting-room mockup with participants and chat
-- Local browser storage for generated rooms
+A Persian RTL webinar/meeting prototype with server-backed room creation, PIN verification, real-time signaling, WebRTC media, chat, and screen sharing.
 
 ## Run locally
 
-Open the project in a browser directly, or start a simple local server:
+Requires Node.js 20 or newer. From the repository directory:
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm start
 ```
 
-Then open:
+Open <http://localhost:3000>. Create a room, copy the invite link from inside the room, and send the PIN separately. The guest opens the invite link, enters their name and PIN, and joins.
 
-```text
-http://localhost:8000
-```
+For local development, camera/microphone access is available on `localhost`. A deployed site must use HTTPS.
 
-## Notes
+## What is real in this version
 
-This is a front-end prototype and not a production real-time meeting backend. For a real webinar product, you would add WebRTC, Socket.IO, authentication, and a backend service.
+- Rooms and PIN verification run through the Express server; PINs are salted and hashed with scrypt.
+- Socket.IO handles authenticated room membership, participant updates, chat, and WebRTC offer/answer/ICE signaling.
+- Browser WebRTC transmits camera/microphone media peer-to-peer. Screen sharing is also supported.
+- The host invite URL does not include the PIN; share the PIN separately.
+
+## Important limitations before production
+
+- Rooms, tokens, and PIN hashes are kept in process memory. A server restart clears active rooms, and this single-process prototype is not horizontally scalable.
+- This peer-to-peer mesh implementation is intentionally capped at eight participants. For larger webinars, replace mesh media with an SFU service (for example LiveKit, mediasoup, or Janus).
+- STUN alone cannot connect every network. Configure a TURN service for reliable cross-network connectivity. Set `window.WEBINAR_TURN_SERVERS` before `assets/app.js` to an array of ICE server objects, for example `{ urls, username, credential }`; do not commit TURN credentials to a public repository.
+- Before real public use, add persistent storage, user authentication, room expiration, moderation controls, rate limiting at a proxy, logging/monitoring, and a managed TURN/SFU deployment. Use HTTPS.
+- Do not use this prototype to handle sensitive meetings without completing a security and privacy review.
+
+## Deployment
+
+Run `npm install` and `npm start` on a Node.js host that supports long-lived WebSocket connections. Configure HTTPS at the hosting provider or reverse proxy and set `PORT` as required. `PUBLIC_ORIGIN` can be set to the exact public origin if cross-origin access is needed; by default the app is intended to be served from one origin.

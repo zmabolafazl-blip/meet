@@ -6,93 +6,29 @@
     <title>ساخت جلسه | WebinarFlow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
   <body class="page-shell">
-    <header class="site-header compact-header">
-      <div class="container nav-wrap">
-        <a href="index.html" class="brand">
-          <span class="brand-mark">W</span>
-          <span>WebinarFlow</span>
-        </a>
-        <div class="nav-actions">
-          <a class="btn btn-ghost" href="join.html">پیوستن</a>
-          <a class="btn btn-primary" href="index.html">صفحه اصلی</a>
-        </div>
-      </div>
-    </header>
-
-    <main class="page-main">
-      <div class="container form-layout">
-        <section class="form-panel">
-          <div class="panel-head">
-            <span class="eyebrow">مدیر جلسه</span>
-            <h1>جلسه جدید بسازید</h1>
-            <p>یک لینک اختصاصی و کد PIN برای ورود مهمان‌ها ایجاد کنید.</p>
+    <header class="site-header compact-header"><div class="container nav-wrap">
+      <a href="index.html" class="brand"><span class="brand-mark">W</span><span>WebinarFlow</span></a>
+      <div class="nav-actions"><a class="btn btn-ghost" href="join.html">پیوستن</a><a class="btn btn-primary" href="index.html">صفحه اصلی</a></div>
+    </div></header>
+    <main class="page-main"><div class="container form-layout narrow-layout">
+      <section class="form-panel">
+        <div class="panel-head"><span class="eyebrow">مدیر جلسه</span><h1>جلسه جدید بسازید</h1><p>لینک دعوت را با مهمان‌ها به اشتراک بگذارید و PIN را جداگانه برایشان بفرستید.</p></div>
+        <form id="hostForm" class="stack-form">
+          <div class="field-group"><label for="meetingTitle">عنوان جلسه</label><input id="meetingTitle" type="text" maxlength="100" placeholder="مثلاً: وبینار فروش و رشد" required /></div>
+          <div class="field-row">
+            <div class="field-group"><label for="hostName">نام مدیر</label><input id="hostName" type="text" maxlength="60" placeholder="نام شما" required /></div>
+            <div class="field-group"><label for="pinCode">PIN جلسه (۴ تا ۸ رقم)</label><input id="pinCode" type="password" inputmode="numeric" pattern="[0-9]{4,8}" minlength="4" maxlength="8" placeholder="••••" required /></div>
           </div>
-
-          <form id="hostForm" class="stack-form">
-            <div class="field-group">
-              <label for="meetingTitle">عنوان جلسه</label>
-              <input id="meetingTitle" type="text" placeholder="مثلاً: وبینار فروش و رشد" required />
-            </div>
-            <div class="field-row">
-              <div class="field-group">
-                <label for="hostName">نام مدیر</label>
-                <input id="hostName" type="text" placeholder="نام شما" required />
-              </div>
-              <div class="field-group">
-                <label for="pinCode">PIN جلسه</label>
-                <input id="pinCode" type="text" placeholder="مثلاً: 4827" required maxlength="6" />
-              </div>
-            </div>
-            <div class="field-row">
-              <div class="field-group">
-                <label for="roomDate">تاریخ جلسه</label>
-                <input id="roomDate" type="datetime-local" required />
-              </div>
-              <div class="field-group">
-                <label for="capacity">سقف مهمان‌ها</label>
-                <input id="capacity" type="number" min="2" max="500" value="100" required />
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary full-width">ایجاد جلسه</button>
-          </form>
-        </section>
-
-        <aside class="preview-panel">
-          <div class="preview-box">
-            <span class="eyebrow">پیش‌نمایش لینک</span>
-            <h2>جلسه آماده است</h2>
-            <div id="roomPreview" class="preview-card">
-              <div class="preview-meta">
-                <span>عنوان:</span>
-                <strong id="previewTitle">هنوز هیچ جلسه‌ای ساخته نشده</strong>
-              </div>
-              <div class="preview-meta">
-                <span>مدیر:</span>
-                <strong id="previewHost">-</strong>
-              </div>
-              <div class="preview-meta">
-                <span>PIN:</span>
-                <strong id="previewPin">-</strong>
-              </div>
-              <div class="preview-meta">
-                <span>لینک:</span>
-                <strong id="previewLink">-</strong>
-              </div>
-            </div>
-            <button id="copyLinkBtn" class="btn btn-secondary full-width">کپی لینک جلسه</button>
-          </div>
-        </aside>
-      </div>
-    </main>
-
+          <div class="field-group"><label for="capacity">حداکثر شرکت‌کنندگان (حداکثر ۸ نفر در این نسخه)</label><input id="capacity" type="number" min="2" max="8" value="8" required /></div>
+          <p class="form-error" id="formError" role="alert"></p>
+          <button id="hostSubmit" type="submit" class="btn btn-primary full-width">ساخت جلسه و ورود</button>
+        </form>
+      </section>
+    </div></main>
     <script src="assets/app.js"></script>
   </body>
 </html>
