@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اتاق جلسه | WebinarFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="room-page">
+    <header class="topbar-room">
+      <div class="container room-header-wrap">
+        <div class="room-title-block">
+          <span class="live-pill tiny">زنده</span>
+          <h1 id="roomTitle">جلسه وبینار</h1>
+        </div>
+        <div class="room-actions">
+          <button class="btn btn-secondary" id="toggleMic">میکروفون: روشن</button>
+          <button class="btn btn-secondary" id="toggleVideo">ویدیو: روشن</button>
+          <button class="btn btn-primary" id="shareLinkBtn">اشتراک لینک</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="room-main">
+      <div class="container room-grid">
+        <section class="stage-panel">
+          <div class="stage-layout">
+            <div class="main-video">
+              <div class="video-user">مدیر جلسه</div>
+            </div>
+            <div class="small-video-stack" id="participantsList">
+              <div class="mini-video"><span>مهمان ۱</span></div>
+              <div class="mini-video"><span>مهمان ۲</span></div>
+            </div>
+          </div>
+          <div class="stage-controls">
+            <button class="control-btn">✋ دست‌بالا</button>
+            <button class="control-btn">💬 سوال</button>
+            <button class="control-btn danger" id="leaveRoomBtn">خروج</button>
+          </div>
+        </section>
+
+        <aside class="room-sidebar">
+          <div class="sidebar-card">
+            <h3>شرکت‌کنندگان</h3>
+            <ul id="participantsSidebar" class="participant-list">
+              <li>مدیر جلسه</li>
+              <li>مهمان ۱</li>
+              <li>مهمان ۲</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card chat-card">
+            <h3>چت جلسه</h3>
+            <div id="chatBox" class="chat-box">
+              <div class="chat-message"><strong>مدیر:</strong> خوش آمدید.</div>
+              <div class="chat-message"><strong>مهمان ۱:</strong> سلام، آماده‌ام.</div>
+            </div>
+            <form id="chatForm" class="chat-form">
+              <input type="text" id="chatInput" placeholder="پیام خود را بنویسید..." />
+              <button type="submit" class="btn btn-primary">ارسال</button>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
